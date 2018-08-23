@@ -7,11 +7,10 @@ import lejos.robotics.RegulatedMotor;
 import lejos.utility.Delay;
 
 public class Motors {
-	private RegulatedMotor mL; //= new EV3LargeRegulatedMotor(MotorPort.C);
-	private RegulatedMotor mR; //= new EV3LargeRegulatedMotor(MotorPort.B);
-	//private int speed = 1000;
+	private RegulatedMotor mL;
+	private RegulatedMotor mR;
 	final int DEFAULTSPEED = 1000;
-	
+
 	public Motors(RegulatedMotor mL, RegulatedMotor mR) {
 		this.mL = mL;
 		this.mR = mR;
@@ -19,27 +18,7 @@ public class Motors {
 		mR.setSpeed(DEFAULTSPEED);
 		mL.synchronizeWith(new RegulatedMotor[] { mR });
 	}
-	/*
-	public void Drive() {
-		mL.setSpeed(speed);
-		mR.setSpeed(speed);
-		
-		mL.startSynchronization();
-		mL.forward();
-		mR.backward();
-		mL.endSynchronization();
-		Delay.msDelay(1000);
-		mL.startSynchronization();
-		mL.backward();
-		mR.forward();
-		mL.endSynchronization();
-		Delay.msDelay(1000);
-		
-		
-		mR.stop(true);
-		mL.stop(true);
-	}*/
-	
+
 	public void DriveStraigth(int howLong, boolean forward) {
 		mL.startSynchronization();
 		if (forward) {
@@ -52,29 +31,32 @@ public class Motors {
 		mL.endSynchronization();
 		Delay.msDelay(howLong);
 	}
-	
-	public void StopAndRotate(boolean left, int degrees) {
+
+	public void StopAndRotate(boolean left, int howLong) {
 		mL.startSynchronization();
 		if (left) {
-			mR.rotate(degrees);
-			mL.rotate(-degrees);
+			mR.forward();
+			mL.backward();
 		} else {
-			mL.rotate(degrees);
-			mR.rotate(-degrees);
+			mL.forward();
+			mR.backward();
 		}
 		mL.endSynchronization();
+		Delay.msDelay(howLong);
 	}
-	
+
 	public void TurnWhileMoving(boolean left, int howMuch, int howLong) {
-		mL.startSynchronization();
 		if (left) {
-			mR.setSpeed(DEFAULTSPEED + howMuch);
+			mL.setSpeed(DEFAULTSPEED - howMuch);
 		} else {
-			mL.setSpeed(DEFAULTSPEED + howMuch);
+			mR.setSpeed(DEFAULTSPEED - howMuch);
 		}
+		mL.startSynchronization();
 		mL.forward();
 		mR.forward();
 		mL.endSynchronization();
 		Delay.msDelay(howLong);
+		mL.setSpeed(DEFAULTSPEED);
+		mR.setSpeed(DEFAULTSPEED);
 	}
 }
