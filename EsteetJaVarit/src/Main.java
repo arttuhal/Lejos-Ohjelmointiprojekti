@@ -1,3 +1,5 @@
+import lejos.hardware.Button;
+import lejos.hardware.lcd.LCD;
 import lejos.hardware.motor.EV3LargeRegulatedMotor;
 import lejos.hardware.port.MotorPort;
 import lejos.robotics.RegulatedMotor;
@@ -11,15 +13,21 @@ public class Main {
 		RegulatedMotor mL = new EV3LargeRegulatedMotor(MotorPort.C);
 		RegulatedMotor mR = new EV3LargeRegulatedMotor(MotorPort.B);
 		Motors motors = new Motors(mL, mR);
-		// Actions
-		motors.Stop();
-		colors.calibrateColors();
-		motors.Forward();
-		IR.testDistance();
-		motors.Backward();
-		Delay.msDelay(1000);
-		
 
+		// Actions
+		colors.calibrateColors();
+		LCD.drawString("Place robot on start line", 0, 0);
+		LCD.drawString("Press ENTER to start.", 0, 2);
+		Button.ENTER.waitForPressAndRelease();
+		motors.Backward();
+		IR.testDistance();
+		motors.Forward();
+		while (!colors.checkForRed()) {
+			LCD.drawString("Searching for color", 0, 0);
+			Delay.msDelay(10);
+		}
+		motors.Stop();
+		Delay.msDelay(100);
 	}
 
 }

@@ -8,7 +8,7 @@ import lejos.utility.Delay;
 public class Motors {
 	private RegulatedMotor mL;
 	private RegulatedMotor mR;
-	final int DEFAULTSPEED = 1000;
+	final int DEFAULTSPEED = 600;
 
 	public Motors(RegulatedMotor mL, RegulatedMotor mR) {
 		this.mL = mL;
@@ -18,19 +18,20 @@ public class Motors {
 		mL.synchronizeWith(new RegulatedMotor[] { mR });
 	}
 
-	public void Forward() {
+	public void Backward() {
 		mL.startSynchronization();
 		mL.backward();
 		mR.backward();
 		mL.endSynchronization();
 	}
-	
-	public void Backward() {
+
+	public void Forward() {
 		mL.startSynchronization();
 		mL.forward();
 		mR.forward();
 		mL.endSynchronization();
 	}
+
 	public void Stop() {
 		mL.startSynchronization();
 		mL.stop();
