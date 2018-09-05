@@ -9,14 +9,14 @@ public class MuutaSuunta implements Behavior {
 	private volatile boolean suppressed = false;
 	private volatile boolean actionRunning = false;
 	private Motors motors;
-	private InfraredSensor IR;
+	private KaukoOhjain kaukoOhjain;
 	private ColorSensor colors;
 	private Random random;
 
-	public MuutaSuunta(Motors motors, InfraredSensor IR, ColorSensor colors) {
+	public MuutaSuunta(Motors motors, KaukoOhjain kaukoOhjain, ColorSensor colors) {
 		this.motors = motors;
 		this.colors = colors;
-		this.IR = IR;
+		this.kaukoOhjain = kaukoOhjain;
 		random = new Random();
 	}
 
@@ -24,7 +24,7 @@ public class MuutaSuunta implements Behavior {
 		if (actionRunning) {
 			return false;
 		} else {
-			float distance = IR.getDistance();
+			float distance = kaukoOhjain.getDistance();
 			if (Button.UP.isUp()) {
 				if ((distance <= 10.0 && distance > 0.0) || colors.checkForRed()) {
 					return true;
