@@ -10,19 +10,21 @@ import lejos.robotics.geometry.Line;
 import lejos.robotics.geometry.Rectangle;
 
 public class Kartta {
-	private final Rectangle rect = new Rectangle(-50, -50, 200, 300); // x, y, leveys, korkeus
-	private final Line[] janat = new Line[] { new Line(0, 0, 100, 0), new Line(100, 0, 100, 100),
-			new Line(100, 100, 0, 100), new Line(0, 100, 0, 0) };
-	private LineMap kartta = new LineMap(janat, rect);
+	private final Rectangle rect = new Rectangle(-10, 15, 150, -100); // x, y, leveys, korkeus
+	private LineMap kartta;
+	
 	// Luodaan esteiden kulmapisteet
-	private final Waypoint[] estePisteet1 = new Waypoint[] { new Waypoint(50, 0), new Waypoint(100, 0) };
-	private final Waypoint[] estePisteet2 = new Waypoint[] { new Waypoint(50, 0), new Waypoint(100, 0) };
-
-	private List<Waypoint[]> esteet;
+	private final Waypoint[] estePisteet1 = new Waypoint[] { new Waypoint(-10, -15), new Waypoint(15, -15) };
+	private final Waypoint[] estePisteet2 = new Waypoint[] { new Waypoint(80, -54), new Waypoint(80, -43), new Waypoint(110, -54), new Waypoint(110, -43) };
+	//private final Waypoint[] estePisteet3 = new Waypoint[] { new Waypoint(30, 15), new Waypoint(30, -15) };
+	
+	
+	private List<Waypoint[]> esteet = new ArrayList<Waypoint[]>();
 
 	public Kartta() {
 		esteet.add(estePisteet1);
 		esteet.add(estePisteet2);
+		//esteet.add(estePisteet3);
 
 	}
 
@@ -44,10 +46,6 @@ public class Kartta {
 
 	public Rectangle getRect() {
 		return rect;
-	}
-
-	public Line[] getJanat() {
-		return janat;
 	}
 
 	public LineMap getKartta() {

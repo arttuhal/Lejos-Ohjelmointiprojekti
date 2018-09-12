@@ -17,10 +17,10 @@ public class NavMain {
 	public static void main(String[] args) {
 		RegulatedMotor right = new EV3LargeRegulatedMotor(MotorPort.B);
 		RegulatedMotor left = new EV3LargeRegulatedMotor(MotorPort.C);
-		Wheel wheel1 = WheeledChassis.modelWheel(right, 3.12).offset(-8.9);
+		Wheel wheel1 = WheeledChassis.modelWheel(right, 3.12).offset(-8.75);
 		// offset on renkaan keskipisteen etäisyys robotin keskipisteestä,
 		// vasen miinusmerkkisenä
-		Wheel wheel2 = WheeledChassis.modelWheel(left, 3.12).offset(8.9);
+		Wheel wheel2 = WheeledChassis.modelWheel(left, 3.12).offset(8.75);
 		Chassis chassis = new WheeledChassis(new Wheel[] { wheel1, wheel2 }, WheeledChassis.TYPE_DIFFERENTIAL);
 		PoseProvider poser = chassis.getPoseProvider();
 		MovePilot pilotti = new MovePilot(chassis);

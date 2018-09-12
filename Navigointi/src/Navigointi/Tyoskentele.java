@@ -5,15 +5,11 @@ import lejos.robotics.subsumption.Behavior;
 
 public class Tyoskentele implements Behavior{
 	private volatile boolean suppressed = false;
-	private Boolean pisteella = false;
 	
-	public void onPisteella() {
-		pisteella = true;
-	}
 
 	@Override
 	public boolean takeControl() {
-		if(pisteella) {
+		if(!Laadunvalvoja.tyoValmis) {
 			return true;
 		}
 		return false;
@@ -22,16 +18,16 @@ public class Tyoskentele implements Behavior{
 	@Override
 	public void action() {
 		suppressed = false;
-		LCD.drawString("TYOSKENTELEE", 0, 3);
+		LCD.drawString("TYOSKENTELEE", 0, 5);
 		while (!suppressed)
 			try {
-				Thread.sleep(3000);
+				Thread.sleep(1000);
 				suppress();
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-		pisteella = false;
+		Laadunvalvoja.jatkaMatkaa();
 		LCD.clear();
 		
 	}
