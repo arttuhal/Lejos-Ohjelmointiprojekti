@@ -24,7 +24,6 @@ public class Tyoskentele implements Behavior{
 				Thread.sleep(1000);
 				suppress();
 			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		Laadunvalvoja.jatkaMatkaa();

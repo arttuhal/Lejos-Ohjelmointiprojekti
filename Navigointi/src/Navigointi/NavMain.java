@@ -26,11 +26,10 @@ public class NavMain {
 		MovePilot pilotti = new MovePilot(chassis);
 		Navigator nav = new Navigator(pilotti, poser);
 
-		
 		Tracking tracking = new Tracking(poser);
 		tracking.start();
 		Kartta kartta = new Kartta();
-		
+
 		try {
 			Behavior tyoskentele = new Tyoskentele();
 			Behavior captain = new Captain(nav, kartta, tracking);
