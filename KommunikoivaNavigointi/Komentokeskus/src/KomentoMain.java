@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.net.*;
 
+import lejos.robotics.geometry.Rectangle;
+
 public class KomentoMain {
 
 	public static void main(String[] args) {
@@ -12,16 +14,16 @@ public class KomentoMain {
 		
 		try {
 			Socket s = new Socket("10.0.1.1", 1111);
-			//DataInputStream in = new DataInputStream(s.getInputStream());
+			DataInputStream in = new DataInputStream(s.getInputStream());
 			DataOutputStream out = new DataOutputStream(s.getOutputStream());
-			ObjectOutputStream objOut = new ObjectOutputStream(out);
-			objOut.writeObject(kartta);
-			//out.writeUTF("Test");
-			out.flush();
-			objOut.flush();
 			
+			kartta.sendKartta(out);
+			
+			HavaintoLukijaThread havaintoLukija = new HavaintoLukijaThread(in);
+			havaintoLukija.start();
+			
+			out.flush();
 			out.close();
-			//objOut.flush();
 			//in.close();
 			s.close();
 			
