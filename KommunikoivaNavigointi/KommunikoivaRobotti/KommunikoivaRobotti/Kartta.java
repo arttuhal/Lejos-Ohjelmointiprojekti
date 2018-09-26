@@ -1,10 +1,9 @@
+package KommunikoivaRobotti;
+
 
 import lejos.robotics.mapping.LineMap;
 import lejos.robotics.navigation.Waypoint;
 
-import java.io.DataOutputStream;
-import java.io.IOException;
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,10 +11,8 @@ import lejos.robotics.geometry.Line;
 import lejos.robotics.geometry.Rectangle;
 
 public class Kartta {
-	private final Rectangle rect = new Rectangle(-10, 15, 150, -100); // x, y, leveys, korkeus
+	private Rectangle rect = new Rectangle(-10, 15, 150, -100); // x, y, leveys, korkeus
 	private LineMap kartta;
-	private final Waypoint[] waypoints = new Waypoint[] { new Waypoint(70, -6), new Waypoint(40, -36),
-			new Waypoint(99, -70), new Waypoint(0, 0) };
 
 	// Luodaan esteiden kulmapisteet
 	private final Waypoint[] estePisteet1 = new Waypoint[] { new Waypoint(-10, -15), new Waypoint(15, -15) };
@@ -39,8 +36,10 @@ public class Kartta {
 			for (int i = 0; i < esteet.get(j).length; i++) {
 				for (int k = 0; k < esteet.get(j).length; k++) {
 					if (i != k) {
-						reititLista.add(new Line(esteet.get(j)[i].x, esteet.get(j)[i].y, esteet.get(j)[k].x,
-								esteet.get(j)[k].y));
+						reititLista.add(new Line(esteet.get(j)[i].x, 
+												esteet.get(j)[i].y, 
+												esteet.get(j)[k].x,
+												esteet.get(j)[k].y));
 					}
 				}
 			}
@@ -53,15 +52,13 @@ public class Kartta {
 	public Rectangle getRect() {
 		return rect;
 	}
+	
+	public void setKartta(LineMap kartta) {
+		this.kartta = kartta;
+	}
 
 	public LineMap getKartta() {
-		kartta = new LineMap(luoEste(), rect);
 		return kartta;
-	}
-	
-	public void sendKartta(DataOutputStream out) throws IOException {
-		getKartta();
-		kartta.dumpObject(out);
 	}
 
 }

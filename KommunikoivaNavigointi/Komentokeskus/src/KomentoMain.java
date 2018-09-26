@@ -21,11 +21,17 @@ public class KomentoMain {
 			
 			HavaintoLukijaThread havaintoLukija = new HavaintoLukijaThread(in);
 			havaintoLukija.start();
+			try {
+				havaintoLukija.join();
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			
-			out.flush();
-			out.close();
+			//out.flush();
+			//out.close();
 			//in.close();
-			s.close();
+			//s.close();
 			
 		} catch (UnknownHostException e) {
 			// TODO Auto-generated catch block

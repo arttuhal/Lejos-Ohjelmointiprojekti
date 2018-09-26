@@ -1,5 +1,6 @@
 import java.io.DataInputStream;
 import java.io.IOException;
+import java.net.SocketException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,7 +21,7 @@ public class HavaintoLukijaThread extends Thread {
 		while (!lopeta) {
 			try {
 				String input = in.readUTF();
-				if (input.contains("Koordinaatit")) {
+				if (input.contains("havainto")) {
 					havainnot.add(new Havainto());
 					havainnot.get(index).setNumero(index + 1);
 					havainnot.get(index).setX(in.readFloat());
@@ -32,7 +33,7 @@ public class HavaintoLukijaThread extends Thread {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-			if (havainnot.size() == 3) {
+			if (havainnot.size() >= 3) {
 				for (int i = 0; i < havainnot.size(); i++) {
 					System.out.println(havainnot.get(i).toString());
 				}
